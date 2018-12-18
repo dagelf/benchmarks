@@ -1,0 +1,133 @@
+root@raspberrypi:/mnt/p2# dd if=/dev/zero of=/dev/null bs=1M count=2k
+2048+0 records in
+2048+0 records out
+2147483648 bytes (2.1 GB, 2.0 GiB) copied, 0.903237 s, 2.4 GB/s
+root@raspberrypi:/mnt/p2# dd if=/dev/zero of=/dev/null bs=1M count=2k
+2048+0 records in
+2048+0 records out
+2147483648 bytes (2.1 GB, 2.0 GiB) copied, 0.846121 s, 2.5 GB/s
+root@raspberrypi:/mnt/p2# cat /proc/cpuinfo 
+processor	: 0
+model name	: ARMv7 Processor rev 4 (v7l)
+BogoMIPS	: 38.40
+Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 
+CPU implementer	: 0x41
+CPU architecture: 7
+CPU variant	: 0x0
+CPU part	: 0xd03
+CPU revision	: 4
+
+processor	: 1
+model name	: ARMv7 Processor rev 4 (v7l)
+BogoMIPS	: 38.40
+Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 
+CPU implementer	: 0x41
+CPU architecture: 7
+CPU variant	: 0x0
+CPU part	: 0xd03
+CPU revision	: 4
+
+processor	: 2
+model name	: ARMv7 Processor rev 4 (v7l)
+BogoMIPS	: 38.40
+Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 
+CPU implementer	: 0x41
+CPU architecture: 7
+CPU variant	: 0x0
+CPU part	: 0xd03
+CPU revision	: 4
+
+processor	: 3
+model name	: ARMv7 Processor rev 4 (v7l)
+BogoMIPS	: 38.40
+Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 
+CPU implementer	: 0x41
+CPU architecture: 7
+CPU variant	: 0x0
+CPU part	: 0xd03
+CPU revision	: 4
+
+Hardware	: BCM2835
+Revision	: a020d3
+Serial		: 000000008dd6064f
+root@raspberrypi:/mnt/p2# cat /proc/meminfo 
+MemTotal:         949448 kB
+MemFree:          574628 kB
+MemAvailable:     850492 kB
+Buffers:            4896 kB
+Cached:           321104 kB
+SwapCached:            0 kB
+Active:            85988 kB
+Inactive:         251860 kB
+Active(anon):      12072 kB
+Inactive(anon):    11992 kB
+Active(file):      73916 kB
+Inactive(file):   239868 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+SwapTotal:             0 kB
+SwapFree:              0 kB
+Dirty:                 0 kB
+Writeback:             0 kB
+AnonPages:         11852 kB
+Mapped:            15736 kB
+Shmem:             12220 kB
+Slab:              24072 kB
+SReclaimable:      14152 kB
+SUnreclaim:         9920 kB
+KernelStack:         808 kB
+PageTables:          772 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:      474724 kB
+Committed_AS:      82600 kB
+VmallocTotal:    1114112 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+CmaTotal:           8192 kB
+CmaFree:            6800 kB
+root@raspberrypi:/mnt/p2# cat /proc/cmdline 
+8250.nr_uarts=0 bcm2708_fb.fbwidth=656 bcm2708_fb.fbheight=416 bcm2708_fb.fbswap=1 vc_mem.mem_base=0x3ec00000 vc_mem.mem_size=0x40000000  dwc_otg.lpm_enable=0 console=ttyS0,115200 console=tty1 root=/dev/nfs nfsroot=192.168.1.1:/nfs/client1,tcp,v3 rootfstype=nfs rw ip=dhcp rootwait elevator=deadline
+root@raspberrypi:/mnt/p2# cat /proc/version 
+Linux version 4.14.79-v7+ (dc4@dc4-XPS13-9333) (gcc version 4.9.3 (crosstool-NG crosstool-ng-1.22.0-88-g8460611)) #1159 SMP Sun Nov 4 17:50:20 GMT 2018
+root@raspberrypi:/mnt/p2# 
+
+server:/tmp# iperf -c 192.168.1.37
+------------------------------------------------------------
+Client connecting to 192.168.1.37, TCP port 5001
+TCP window size: 85.0 KByte (default)
+------------------------------------------------------------
+[  3] local 192.168.1.1 port 42256 connected with 192.168.1.37 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  3]  0.0-10.0 sec   286 MBytes   240 Mbits/sec
+server:/tmp# iperf -c 192.168.1.37 -d
+------------------------------------------------------------
+Server listening on TCP port 5001
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+------------------------------------------------------------
+Client connecting to 192.168.1.37, TCP port 5001
+TCP window size:  144 KByte (default)
+------------------------------------------------------------
+[  5] local 192.168.1.1 port 42262 connected with 192.168.1.37 port 5001
+[  4] local 192.168.1.1 port 5001 connected with 192.168.1.37 port 58874
+[ ID] Interval       Transfer     Bandwidth
+[  5]  0.0-10.0 sec   151 MBytes   126 Mbits/sec
+[  4]  0.0-10.0 sec   203 MBytes   170 Mbits/sec
+server:/tmp#  iperf -c 192.168.1.37 -r
+------------------------------------------------------------
+Server listening on TCP port 5001
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+------------------------------------------------------------
+Client connecting to 192.168.1.37, TCP port 5001
+TCP window size:  178 KByte (default)
+------------------------------------------------------------
+[  5] local 192.168.1.1 port 42264 connected with 192.168.1.37 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  5]  0.0-10.0 sec   284 MBytes   238 Mbits/sec
+[  4] local 192.168.1.1 port 5001 connected with 192.168.1.37 port 58876
+d[  4]  0.0-10.0 sec   357 MBytes   299 Mbits/sec
+
+server:/tmp# 
